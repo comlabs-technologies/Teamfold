@@ -1,0 +1,468 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Peoplelayer — design tokens
+   ============================================================ */
+:root {
+  --page: #f5f5f3;
+  --surface: #ffffff;
+  --surface-soft: #faf9f6;
+  --ink: #231905;
+  --ink-muted: #6f695f;
+  --line: rgba(35, 25, 5, 0.14);
+  --line-soft: rgba(35, 25, 5, 0.08);
+  --orange: #ff8812;
+  --orange-soft: #f5a331;
+  --peach: #fbd6a4;
+  --peach-light: #f8eadb;
+  --dark: #231905;
+
+  --gutter: 76px;
+  --content: 1192px;
+  --radius-card: 20px;
+  --radius-cta: 32px;
+  --shadow-fine: 0 0 3px rgba(0, 0, 0, 0.24);
+  --shadow-hair: 0 0 2px rgba(0, 0, 0, 0.14);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-orange: var(--orange);
+  --color-orange-soft: var(--orange-soft);
+  --color-peach: var(--peach);
+  --color-peach-light: var(--peach-light);
+  --color-dark: var(--dark);
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --gutter: 32px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+  }
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+* {
+  border-color: var(--line-soft);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--page);
+  color: var(--ink);
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--peach);
+  color: var(--ink);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ============================================================
+   Layout helpers
+   ============================================================ */
+.pl-shell {
+  width: 100%;
+  margin-inline: auto;
+  max-width: calc(var(--content) + var(--gutter) * 2);
+  padding-inline: var(--gutter);
+}
+
+.pl-section {
+  padding-block: 120px;
+}
+@media (min-width: 1024px) {
+  .pl-section {
+    padding-block: 144px;
+  }
+}
+@media (max-width: 640px) {
+  .pl-section {
+    padding-block: 88px;
+  }
+}
+
+/* Architectural page grid */
+.pl-grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(35, 25, 5, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(35, 25, 5, 0.025) 1px, transparent 1px);
+  background-size: 236px 236px;
+}
+
+.pl-grid-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* ============================================================
+   Typography scale
+   ============================================================ */
+.pl-h1 {
+  font-size: 36px;
+  line-height: 41px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+@media (min-width: 768px) {
+  .pl-h1 {
+    font-size: 42px;
+    line-height: 48px;
+  }
+}
+@media (min-width: 1024px) {
+  .pl-h1 {
+    font-size: 48px;
+    line-height: 56px;
+  }
+}
+
+.pl-h2 {
+  font-size: 30px;
+  line-height: 36px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+@media (min-width: 768px) {
+  .pl-h2 {
+    font-size: 36px;
+    line-height: 42px;
+  }
+}
+
+.pl-h3 {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+@media (min-width: 768px) {
+  .pl-h3 {
+    font-size: 28px;
+    line-height: 34px;
+  }
+}
+
+.pl-lead {
+  font-size: 17px;
+  line-height: 26px;
+  color: var(--ink-muted);
+  letter-spacing: 0;
+}
+
+.pl-label {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.pl-eyebrow {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* ============================================================
+   Surfaces
+   ============================================================ */
+.pl-card {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-hair);
+}
+
+.pl-glow-peach {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  background: radial-gradient(
+    closest-side,
+    rgba(251, 214, 164, 0.85),
+    rgba(248, 234, 219, 0.45) 55%,
+    rgba(245, 245, 243, 0) 100%
+  );
+  filter: blur(28px);
+}
+
+.pl-icon-tile {
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+  background: linear-gradient(180deg, #f2f1ed 0%, var(--peach-light) 100%);
+  color: var(--ink);
+  transition: transform 220ms var(--ease-out-expo), border-color 220ms ease;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.pl-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
+    transform 140ms var(--ease-out-expo), box-shadow 200ms ease;
+}
+.pl-btn:active {
+  transform: scale(0.98);
+}
+.pl-btn:disabled,
+.pl-btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pl-btn-dark {
+  background: var(--dark);
+  color: #fff;
+  padding: 8px 8px 8px 26px;
+  min-height: 56px;
+}
+.pl-btn-dark:hover {
+  background: #33260c;
+}
+
+.pl-btn-light {
+  background: var(--surface);
+  color: var(--ink);
+  padding: 8px 8px 8px 26px;
+  min-height: 56px;
+  border: 1px solid var(--line-soft);
+}
+.pl-btn-light:hover {
+  background: #fffdf9;
+}
+
+.pl-btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 0 26px;
+  min-height: 52px;
+}
+.pl-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(35, 25, 5, 0.28);
+}
+
+.pl-btn-hero {
+  min-width: 230px;
+  min-height: 68px;
+  padding-left: 32px;
+  font-size: 15px;
+}
+
+/* Arrow surface inside pill buttons */
+.pl-arrow-dot {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  flex: none;
+  transition: background-color 220ms ease, box-shadow 220ms ease;
+}
+.pl-arrow-dot svg {
+  transition: transform 220ms var(--ease-out-expo);
+}
+.pl-btn:hover .pl-arrow-dot svg {
+  transform: translateX(3px);
+}
+.pl-arrow-dot--light {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.1));
+  color: #fff;
+}
+.pl-btn:hover .pl-arrow-dot--light {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.18));
+}
+.pl-arrow-dot--dark {
+  background: var(--dark);
+  color: #fff;
+}
+.pl-btn:hover .pl-arrow-dot--dark {
+  background: #3a2b0d;
+}
+.pl-arrow-dot--sm {
+  width: 40px;
+  height: 40px;
+}
+
+/* Text link with growing underline */
+.pl-textlink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  padding-block: 4px;
+}
+.pl-textlink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform-origin: left;
+  transform: scaleX(0.62);
+  transition: transform 220ms var(--ease-out-expo), opacity 220ms ease;
+  opacity: 0.5;
+}
+.pl-textlink:hover::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+.pl-textlink svg {
+  transition: transform 220ms var(--ease-out-expo);
+}
+.pl-textlink:hover svg {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   Marquee
+   ============================================================ */
+@keyframes value-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.pl-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: value-marquee 38s linear infinite;
+}
+.pl-marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.pl-scroll-x {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.pl-scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   Section-specific fine details
+   ============================================================ */
+.pl-article-media img {
+  transition: transform 500ms var(--ease-out-expo);
+}
+.pl-article-card:hover .pl-article-media img,
+.pl-article-card:focus-within .pl-article-media img {
+  transform: scale(1.025);
+}
+
+.pl-service-card:hover .pl-icon-tile {
+  transform: translateY(-2px);
+}
+.pl-service-card {
+  transition: border-color 220ms ease;
+}
+.pl-service-card:hover {
+  border-color: rgba(35, 25, 5, 0.18);
+}
+
+.pl-audience-art {
+  transition: transform 320ms var(--ease-out-expo);
+}
+.pl-audience-card:hover .pl-audience-art,
+.pl-audience-card:focus-within .pl-audience-art {
+  transform: translateY(-4px);
+}
+.pl-problem-pill {
+  transition: transform 420ms var(--ease-out-expo);
+}
+
+.pl-final-cta {
+  background: linear-gradient(180deg, #f7f7f4 0%, #f7f3ec 58%, #f5c77d 100%);
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .pl-marquee-track {
+    animation: none;
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
