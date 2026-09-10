@@ -33,30 +33,6 @@ export function PolygonLineArt({
   );
 }
 
-/** A second, lighter arrangement used behind the proof carousel. */
-export function LatticeLineArt({
-  className = "",
-  stroke = "rgba(35,25,5,0.10)",
-}: {
-  className?: string;
-  stroke?: string;
-}) {
-  return (
-    <svg viewBox="0 0 640 400" fill="none" className={className} aria-hidden="true">
-      <g stroke={stroke} strokeWidth="1.1" strokeLinejoin="round">
-        <path d="M40 320 L150 90 L330 40 L520 110 L600 300 L420 380 L190 372 Z" />
-        <path d="M150 90 L420 380" />
-        <path d="M330 40 L190 372" />
-        <path d="M520 110 L190 372" />
-        <path d="M150 90 L600 300" />
-        <path d="M40 320 L520 110" />
-        <ellipse cx="330" cy="200" rx="130" ry="130" />
-        <ellipse cx="330" cy="200" rx="72" ry="72" />
-      </g>
-    </svg>
-  );
-}
-
 /** Outlined abstract forms that sit along the base of the final CTA panel. */
 export function BaselineLineArt({ className = "" }: { className?: string }) {
   const stroke = "rgba(35,25,5,0.20)";

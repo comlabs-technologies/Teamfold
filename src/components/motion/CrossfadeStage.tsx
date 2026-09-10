@@ -10,8 +10,9 @@ type CrossfadeStageProps = {
 };
 
 /**
- * Swaps a scene in a fixed-height container: the outgoing scene blurs
- * and lifts away, the incoming scene rises into focus. Height never changes.
+ * Swaps a scene inside a fixed-height container. The outgoing scene blurs
+ * and lifts away while the incoming scene rises into focus; the container
+ * height never changes, so nothing on the page moves.
  */
 export function CrossfadeStage({ activeKey, children, className }: CrossfadeStageProps) {
   const reduced = useReducedMotion();
@@ -22,21 +23,9 @@ export function CrossfadeStage({ activeKey, children, className }: CrossfadeStag
         <motion.div
           key={activeKey}
           className="absolute inset-0"
-          initial={
-            reduced
-              ? { opacity: 0 }
-              : { opacity: 0, y: 10, filter: "blur(4px)" }
-          }
-          animate={
-            reduced
-              ? { opacity: 1 }
-              : { opacity: 1, y: 0, filter: "blur(0px)" }
-          }
-          exit={
-            reduced
-              ? { opacity: 0 }
-              : { opacity: 0, y: -8, filter: "blur(4px)" }
-          }
+          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 8, filter: "blur(4px)" }}
+          animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={reduced ? { opacity: 0 } : { opacity: 0, y: -6, filter: "blur(4px)" }}
           transition={{ duration: reduced ? 0.001 : 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           {children}

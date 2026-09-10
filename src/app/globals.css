@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Peoplelayer — design tokens
+   Teamfold — design tokens
    ============================================================ */
 :root {
   --page: #f5f5f3;
@@ -59,8 +59,19 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Anchored sections clear the floating navigation capsule */
+section[id],
+div[id] {
+  scroll-margin-top: 110px;
 }
 
 body {
@@ -145,21 +156,17 @@ a {
    Typography scale
    ============================================================ */
 .pl-h1 {
-  font-size: 36px;
-  line-height: 41px;
+  /* never larger than 42px on mobile */
+  font-size: clamp(2rem, 8.2vw, 2.625rem);
+  line-height: 1.06;
   font-weight: 600;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
 }
 @media (min-width: 768px) {
   .pl-h1 {
-    font-size: 42px;
-    line-height: 48px;
-  }
-}
-@media (min-width: 1024px) {
-  .pl-h1 {
-    font-size: 48px;
-    line-height: 56px;
+    /* 44px → 60px, never beyond */
+    font-size: clamp(2.75rem, 4.2vw, 3.75rem);
+    line-height: 1.04;
   }
 }
 
@@ -346,6 +353,26 @@ a {
   height: 40px;
 }
 
+/* Desktop navigation links */
+.pl-navlink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  border-radius: 999px;
+  padding-inline: 14px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: background-color 180ms ease, color 180ms ease, transform 140ms var(--ease-out-expo);
+}
+.pl-navlink:hover {
+  background: var(--surface-soft);
+}
+.pl-navlink:active {
+  transform: scale(0.97);
+}
+
 /* Text link with growing underline */
 .pl-textlink {
   position: relative;
@@ -422,14 +449,54 @@ a {
   transform: scale(1.025);
 }
 
-.pl-service-card:hover .pl-icon-tile {
+.pl-service-card {
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+.pl-service-card:hover,
+.pl-service-card:focus-within {
+  border-color: rgba(35, 25, 5, 0.2);
+  background: #fffdfa;
+}
+.pl-service-card:hover .pl-icon-tile,
+.pl-service-card:focus-within .pl-icon-tile {
   transform: translateY(-2px);
 }
-.pl-service-card {
-  transition: border-color 220ms ease;
+.pl-service-card .pl-icon-tile {
+  transition: transform 180ms var(--ease-out-expo), border-color 180ms ease;
 }
-.pl-service-card:hover {
-  border-color: rgba(35, 25, 5, 0.18);
+.pl-service-card:hover .pl-textlink svg,
+.pl-service-card:focus-within .pl-textlink svg {
+  transform: translateX(3px);
+}
+.pl-service-card:hover .pl-textlink::after,
+.pl-service-card:focus-within .pl-textlink::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+/* Paragraphs stay in a comfortable measure */
+.pl-service-copy {
+  max-width: 50ch;
+}
+
+/* Stacked cards on mobile share hairline borders instead of stacking corners */
+@media (max-width: 767px) {
+  .pl-service-grid {
+    gap: 0;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .pl-service-grid > li > .pl-service-card {
+    border: 0;
+    border-top: 1px solid var(--line-soft);
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+  .pl-service-grid > li:first-child > .pl-service-card {
+    border-top: 0;
+  }
 }
 
 .pl-audience-art {

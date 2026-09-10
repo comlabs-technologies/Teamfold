@@ -1,15 +1,12 @@
 import { FloatingHeader } from "@/components/sections/FloatingHeader";
 import { Hero } from "@/components/sections/Hero";
-import { HeroValueMarquee } from "@/components/sections/HeroValueMarquee";
-import { TrustStrip } from "@/components/sections/TrustStrip";
+import { TrustBenefitStrip } from "@/components/sections/TrustBenefitStrip";
 import { AudiencePathCards } from "@/components/sections/AudiencePathCards";
 import { PainPointsSection } from "@/components/sections/PainPointsSection";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { InteractiveProcess } from "@/components/sections/InteractiveProcess";
+import { FounderSection } from "@/components/sections/FounderSection";
 import { AuditCTA } from "@/components/sections/AuditCTA";
-import { SocialProofCarousel } from "@/components/sections/SocialProofCarousel";
-import { PeopleLeaderSection } from "@/components/sections/PeopleLeaderSection";
-import { CoverageSection } from "@/components/sections/CoverageSection";
 import { ArticlesSection } from "@/components/sections/ArticlesSection";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { FinalCTA } from "@/components/sections/FinalCTA";
@@ -20,18 +17,14 @@ export default function HomePage() {
     <>
       <FloatingHeader />
       <main>
-        <Hero>
-          <HeroValueMarquee />
-        </Hero>
-        <TrustStrip />
+        <Hero />
+        <TrustBenefitStrip />
         <AudiencePathCards />
         <PainPointsSection />
         <ServicesGrid />
         <InteractiveProcess />
+        <FounderSection />
         <AuditCTA />
-        <SocialProofCarousel />
-        <PeopleLeaderSection />
-        <CoverageSection />
         <ArticlesSection />
         <FAQSection />
         <FinalCTA />

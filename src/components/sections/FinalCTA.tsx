@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowButton, OutlineButton } from "@/components/ui/ArrowButton";
+import { OutlineButton } from "@/components/ui/ArrowButton";
+import { BookingCta } from "@/components/booking/BookingCta";
 import { BaselineLineArt } from "@/components/illustrations/LineArt";
-import { finalCta } from "@/data/site";
+import { CONTACT_EMAIL, finalCta } from "@/data/site";
 
 export function FinalCTA() {
   const reduced = useReducedMotion();
@@ -40,8 +41,8 @@ export function FinalCTA() {
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            <ArrowButton href={finalCta.primary.href} label={finalCta.primary.label} variant="dark" />
-            <OutlineButton href={finalCta.secondary.href} label={finalCta.secondary.label} />
+            <BookingCta label={finalCta.primaryLabel} variant="dark" />
+            <OutlineButton href={`mailto:${CONTACT_EMAIL}`} label={finalCta.secondaryLabel} />
           </motion.div>
         </div>
       </div>
