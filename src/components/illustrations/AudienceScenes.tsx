@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import { PhoneOff, Mic, Video } from "lucide-react";
+import { Mic, PhoneOff, Video } from "lucide-react";
 import { callParticipants, problemPills, processSteps } from "@/data/site";
-import { editorialImages } from "@/data/images";
 
 /** Floating problem pills that settle toward level when the card is hovered. */
 export function ProblemsScene({ hovered }: { hovered: boolean }) {
@@ -57,26 +55,41 @@ export function PlanScene() {
   );
 }
 
-/** Miniature video-call composition built from semantic HTML. */
+/** Miniature video-call composition, drawn entirely in HTML and CSS. */
 export function CallScene() {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-[16px] border border-[var(--line-soft)] bg-[var(--dark)]">
-      <Image
-        src={editorialImages.remoteMeeting}
-        alt="A remote discovery call shown on a laptop screen"
-        fill
-        sizes="(max-width: 768px) 90vw, 360px"
-        className="object-cover opacity-90"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-[rgba(35,25,5,0.72)] via-[rgba(35,25,5,0.18)] to-transparent"
-      />
+      {/* Speaker tiles */}
+      <div className="absolute inset-3 bottom-14 grid grid-cols-2 gap-2">
+        {[0, 1, 2, 3].map((tile) => (
+          <div
+            key={tile}
+            className="relative overflow-hidden rounded-[10px] border border-white/10"
+            style={{
+              background:
+                tile % 2 === 0
+                  ? "linear-gradient(150deg, rgba(251,214,164,0.22), rgba(255,255,255,0.05))"
+                  : "linear-gradient(150deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03))",
+            }}
+          >
+            <span
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 size-7 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{ background: tile === 0 ? "var(--peach)" : "rgba(255,255,255,0.22)" }}
+            />
+            {tile === 0 ? (
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 rounded-[10px] ring-2 ring-[var(--orange)]/70"
+              />
+            ) : null}
+          </div>
+        ))}
+      </div>
 
-      <div
-        className="absolute left-3 top-3 w-[62%] rounded-[12px] border border-white/15 bg-[rgba(35,25,5,0.62)] p-2.5 backdrop-blur-[2px]"
-      >
-        <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60">
+      {/* Participant list */}
+      <div className="absolute left-3 top-3 w-[64%] rounded-[12px] border border-white/15 bg-[rgba(35,25,5,0.72)] p-2.5">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/55">
           In the room
         </p>
         <ul className="mt-2 flex flex-col gap-1.5">
@@ -97,6 +110,7 @@ export function CallScene() {
         </ul>
       </div>
 
+      {/* Call controls */}
       <div className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-2">
         <span
           aria-hidden="true"

@@ -1,19 +1,9 @@
-import Image from "next/image";
 import { CalendarDays, MessageSquare, TrendingUp, Users } from "lucide-react";
-import { editorialImages } from "@/data/images";
 import type { ProcessStep } from "@/data/site";
 
 const panelClass =
   "h-full w-full rounded-[16px] border border-[var(--line-soft)] bg-white p-5 sm:p-7";
 
-/** Thin editorial strip that gives a scene a sense of place. */
-function SceneMedia({ src, alt }: { src: string; alt: string }) {
-  return (
-    <div className="relative mt-4 hidden h-16 w-full overflow-hidden rounded-[12px] bg-[var(--surface-soft)] sm:block">
-      <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 60vw, 620px" className="object-cover" />
-    </div>
-  );
-}
 
 /** Founder intake form captured on the discovery call. */
 function DiscoveryScene() {
@@ -35,12 +25,8 @@ function DiscoveryScene() {
         </span>
       </header>
 
-      <SceneMedia
-        src={editorialImages.recruitmentInterview}
-        alt="An interviewer taking notes during a structured hiring conversation"
-      />
 
-      <dl className="mt-4 flex flex-col gap-3">
+      <dl className="mt-5 flex flex-col gap-3">
         {fields.map((field) => (
           <div
             key={field.label}
@@ -122,12 +108,8 @@ function ExecutionScene() {
         <p className="text-[14px] font-semibold">Manager coaching</p>
       </header>
 
-      <SceneMedia
-        src={editorialImages.managerCoaching}
-        alt="A manager being coached through a one-to-one conversation"
-      />
 
-      <ul className="mt-4 flex flex-col gap-2.5">
+      <ul className="mt-5 flex flex-col gap-2.5">
         {sessions.map((session) => (
           <li
             key={session.name}

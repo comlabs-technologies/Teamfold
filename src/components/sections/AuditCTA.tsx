@@ -1,4 +1,4 @@
-import { ArrowButton } from "@/components/ui/ArrowButton";
+import { BookingCta } from "@/components/booking/BookingCta";
 import { CheckLine } from "@/components/ui/CheckLine";
 import { Reveal } from "@/components/motion/Reveal";
 import { PolygonLineArt } from "@/components/illustrations/LineArt";
@@ -6,7 +6,7 @@ import { auditCta } from "@/data/site";
 
 export function AuditCTA() {
   return (
-    <section className="relative pb-8" aria-labelledby="audit-heading">
+    <section id="audit" className="relative pb-8" aria-labelledby="audit-heading">
       <div className="pl-shell">
         <div className="relative overflow-hidden rounded-[32px] bg-[var(--dark)] px-6 py-16 sm:px-12 lg:px-20 lg:py-24">
           <PolygonLineArt className="pointer-events-none absolute -left-16 top-1/2 h-[420px] w-[420px] -translate-y-1/2 opacity-70" />
@@ -34,12 +34,7 @@ export function AuditCTA() {
             </Reveal>
 
             <Reveal y={36} delay={0.18} className="mt-11 flex flex-col items-center gap-4">
-              <ArrowButton
-                href={auditCta.cta.href}
-                label={auditCta.cta.label}
-                variant="light"
-                size="hero"
-              />
+              <BookingCta label={auditCta.ctaLabel} variant="light" size="hero" />
               <p className="text-[13px] text-white/50">{auditCta.reassurance}</p>
             </Reveal>
           </div>

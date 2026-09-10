@@ -1,7 +1,7 @@
-# Peoplelayer
+# Teamfold
 
-A premium marketing site for **Peoplelayer**, an original fractional People Operations
-brand, built natively in Next.js (App Router) with TypeScript, Tailwind CSS v4,
+A marketing site for **Teamfold** — senior People Operations leadership, folded
+into your team — built natively in Next.js (App Router) with TypeScript, Tailwind CSS v4,
 Motion for React and Lucide icons.
 
 ## Getting started
@@ -27,9 +27,10 @@ src/
     site.ts             All brand copy, navigation, sections, FAQ, footer
     images.ts           The image registry (swap URLs to rebrand)
   components/
+    booking/            BookingProvider, BookingCta, ContactModal
     motion/             Reveal, StaggerGroup, CrossfadeStage
     ui/                 ArrowButton, BrandMark, AccordionItem, CheckLine, icons
-    illustrations/      RotatingQuote, ValueMarquee, DrawnMap, scenes, line art
+    illustrations/      RotatingQuote, ValueMarquee, scenes, line art
     sections/           One file per page section
 ```
 
@@ -38,6 +39,17 @@ src/
 Every user-facing string is a typed export in `src/data/site.ts`, and every
 photograph is referenced through `src/data/images.ts`. Changing the brand name,
 navigation, services, process steps, FAQ or footer requires no changes to markup.
+
+Three constants at the top of `src/data/site.ts` control the conversion path:
+
+| Constant | Effect |
+| --- | --- |
+| `BOOKING_URL` | While it is `"#"`, every primary CTA opens the built-in contact modal. Set a real scheduling URL and the same CTAs link straight to it. |
+| `CONTACT_EMAIL` | The single source for every `mailto:` link on the site. |
+| `LINKEDIN_URL` | `null` hides the LinkedIn icon entirely rather than linking nowhere. |
+
+The contact modal does **not** post anywhere yet — wire a real submission inside
+`ContactModal`'s `onSubmit` and keep the existing loading, success and error states.
 
 Design tokens (colour, gutters, radii, shadows) are CSS variables at the top of
 `src/app/globals.css`; Tailwind reads them through the `@theme inline` block.
@@ -48,21 +60,23 @@ Scroll reveals default to a 60px rise with a light blur over 0.72s on
 `cubic-bezier(0.16, 1, 0.3, 1)`. Every animated component consults
 `useReducedMotion()`: under `prefers-reduced-motion` all content stays visible,
 transforms and blurs are dropped, and the marquee, rotating quote chip,
-auto-advancing process steps, carousel auto-play and map drawing all hold still
-while remaining fully operable by hand.
+process auto-advance and crossfades all hold still while remaining fully
+operable by hand. The process steps also stop advancing permanently once the
+reader selects a step themselves.
 
 ## Images
 
-Remote photographs are served through `next/image`. The allowed host is declared
-in `next.config.ts`:
+Four remote photographs are served through `next/image`, each used exactly once
+and requested at a width suited to its largest container. The allowed host is
+declared in `next.config.ts`:
 
 ```ts
 images: {
   remotePatterns: [
-    { protocol: "https", hostname: "images.pexels.com", pathname: "/photos/**" },
+    { protocol: "https", hostname: "images.pexels.com" },
   ],
 }
 ```
 
-Product mockups, icons, the brand mark, the coverage map and all background line
-art are hand-authored HTML/CSS/SVG rather than raster assets.
+Product mockups, icons, the brand mark and all background line art are
+hand-authored HTML/CSS/SVG rather than raster assets.

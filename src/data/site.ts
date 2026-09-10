@@ -1,9 +1,32 @@
 import { editorialImages } from "./images";
 
 /* ============================================================
-   Every string on the marketing page lives here so the brand,
-   copy and structure can be replaced without touching markup.
+   Every user-facing string lives here so brand, copy and
+   structure can be changed without touching any markup.
    ============================================================ */
+
+/**
+ * Booking destination. Set this to a real scheduling URL (Cal.com,
+ * SavvyCal, HubSpot, …) to send every primary CTA straight there.
+ * While it is "#", the CTAs open the built-in contact modal instead.
+ */
+export const BOOKING_URL: string = "#";
+
+export const isBookingConfigured = BOOKING_URL !== "#" && BOOKING_URL.length > 0;
+
+/**
+ * Contact addresses. Replace CONTACT_EMAIL once the mailbox is live —
+ * it is the single source of truth for every mailto link on the site.
+ */
+export const CONTACT_EMAIL: string = "hello@teamfold.co";
+
+/**
+ * Set this to the company LinkedIn URL to reveal the footer icon.
+ * While it is null the link stays hidden rather than pointing nowhere.
+ */
+export const LINKEDIN_URL: string | null = null;
+
+export const SITE_URL = "https://teamfold-eight.vercel.app";
 
 export type IconName =
   | "compass"
@@ -12,88 +35,55 @@ export type IconName =
   | "scale"
   | "shield"
   | "sprout"
-  | "heart"
-  | "plug"
   | "clock"
   | "clipboard"
   | "alert";
 
 export const brand = {
-  name: "Peoplelayer",
-  wordmark: "Peoplelayer",
+  name: "Teamfold",
+  wordmark: "Teamfold",
+  tagline: "People systems built to scale with you.",
+  positioning: "Senior People leadership, folded into your team.",
   descriptor: "Fractional People Operations",
-  email: "hello@peoplelayer.example",
-  linkedin: "https://www.linkedin.com/",
-  metaTitle: "Peoplelayer — Fractional People Operations for growing teams",
+  email: CONTACT_EMAIL,
+  metaTitle: "Teamfold — Senior People leadership, folded into your team",
   metaDescription:
-    "Peoplelayer gives startups and scaleups senior People Operations leadership on a fractional basis: hiring systems, performance rhythm, manager support and compliance groundwork.",
+    "Teamfold gives growing companies experienced People Operations leadership for the hours they actually need — stronger hiring, performance and manager systems without the full-time overhead.",
 } as const;
 
 export const navLinks = [
   { label: "Services", href: "#services" },
   { label: "How it works", href: "#process" },
-  { label: "About", href: "#leader" },
+  { label: "About", href: "#about" },
   { label: "Insights", href: "#insights" },
-  { label: "Contact", href: "#contact" },
 ] as const;
 
-export const primaryCta = {
-  label: "Book a call",
-  href: "#contact",
-} as const;
+export const primaryCta = { label: "Book a call" } as const;
 
 /* ---------------------------------------------------------- Hero */
 
 export const hero = {
-  headingLines: ["Senior People leadership", "without the full-time overhead"],
+  headingLines: ["Senior People leadership", "folded into your team."],
   supporting:
-    "Peoplelayer plugs an experienced People Operations lead into your company for the hours you actually need — building the hiring, performance and manager systems a growing team runs on.",
-  cta: { label: "Book a 30-minute audit", href: "#contact" },
-  ctaAnnotation: "It's free",
-  trustStatement: "Trusted by founders and operators building their first People function.",
-  avatars: [
-    { initials: "AR", tone: "#fbd6a4" },
-    { initials: "JM", tone: "#f8eadb" },
-    { initials: "TK", tone: "#f5a331" },
-    { initials: "SD", tone: "#e6e3dc" },
-  ],
+    "Teamfold gives growing companies experienced People Operations leadership for the hours they actually need—building stronger hiring, performance and manager systems without the full-time overhead.",
+  ctaLabel: "Book a 30-minute audit",
+  reassurance: "Free, practical and pressure-free.",
 } as const;
 
-export type RotatingQuote = {
-  id: string;
-  initials: string;
-  tone: string;
-  quote: string;
-};
+/**
+ * The rotating line above the heading. These are the problems founders
+ * describe to us, written as prompts — not attributed to any customer.
+ */
+export type FounderPrompt = { id: string; message: string };
 
-export const rotatingQuotes: RotatingQuote[] = [
-  {
-    id: "hiring",
-    initials: "AR",
-    tone: "#fbd6a4",
-    quote: "We need hiring to stop depending on one person's calendar.",
-  },
-  {
-    id: "reviews",
-    initials: "JM",
-    tone: "#f8eadb",
-    quote: "Our review cycle needs a shape people can plan around.",
-  },
-  {
-    id: "managers",
-    initials: "TK",
-    tone: "#f5a331",
-    quote: "First-time managers need something better than instinct.",
-  },
-  {
-    id: "policy",
-    initials: "SD",
-    tone: "#e6e3dc",
-    quote: "Policy work keeps slipping to the bottom of the list.",
-  },
+export const founderPrompts: FounderPrompt[] = [
+  { id: "hiring", message: "Hiring shouldn't depend on one person's calendar." },
+  { id: "reviews", message: "Our review cycle needs a shape people can plan around." },
+  { id: "managers", message: "First-time managers need more than instinct to lead well." },
+  { id: "policy", message: "Policy work keeps slipping to the bottom of the list." },
 ];
 
-/* ---------------------------------------------------------- Marquee + values */
+/* ---------------------------------------------------------- Trust / benefit strip */
 
 export const valueStatements = [
   "Build repeatable hiring systems",
@@ -103,29 +93,21 @@ export const valueStatements = [
   "Reduce People Ops risk",
 ] as const;
 
-export const valueColumns = [
-  {
-    title: "Senior leadership, not junior administration",
-    body: "You work directly with an operator who has built People functions before — not a coordinator learning on your team.",
-  },
-  {
-    title: "A 90-day plan before heavy implementation",
-    body: "We agree on sequencing and owners first, so effort goes to the two or three things that unblock the company.",
-  },
-  {
-    title: "Human-first systems teams will actually use",
-    body: "Every process is designed around how your managers already work, then documented so it survives without us.",
-  },
-] as const;
-
 export const trustStrip = {
-  label: "Trusted by teams at",
-  companies: [
-    { name: "Northbound Labs", style: "wide" },
-    { name: "Ferrow Health", style: "serifish" },
-    { name: "Quaystone", style: "tight" },
-    { name: "Anvil & Oak", style: "wide" },
-    { name: "Latitude Nine", style: "tight" },
+  headline: "Built for founders creating their first People function.",
+  points: [
+    {
+      title: "Senior operator involvement",
+      body: "You work directly with an experienced People lead — not a coordinator learning on your team.",
+    },
+    {
+      title: "A practical 90-day plan",
+      body: "Sequencing and owners are agreed before implementation, so effort lands on what unblocks the company.",
+    },
+    {
+      title: "Documentation your team owns",
+      body: "Every system is written down as it is built, so it keeps running once the engagement ends.",
+    },
   ],
 } as const;
 
@@ -137,13 +119,14 @@ export type AudiencePath = {
   id: string;
   title: string;
   body: string;
-  cta: { label: string; href: string };
-  ctaStyle: "outline" | "dark";
+  ctaLabel: string;
+  ctaHref?: string;
+  ctaStyle: "outline" | "booking";
   scene: AudienceScene;
 };
 
 export const audienceHeading = {
-  title: "Start where you are — then choose the right next step",
+  title: "Start where you are",
   body: "Most teams arrive at one of three moments. Each one has a sensible first move.",
 };
 
@@ -151,16 +134,18 @@ export const audiencePaths: AudiencePath[] = [
   {
     id: "chaotic",
     title: "People Ops feels chaotic",
-    body: "Hiring, questions and admin all land in the same inbox, and nobody owns the system underneath them.",
-    cta: { label: "See what we fix", href: "#pain-points" },
+    body: "Hiring, questions and admin land in the same inbox, and nobody owns the system underneath them.",
+    ctaLabel: "See what we fix",
+    ctaHref: "#problems",
     ctaStyle: "outline",
     scene: "problems",
   },
   {
     id: "plan",
     title: "I need a practical operating plan",
-    body: "You know roughly what is missing. You want a sequenced plan with owners, dates and a realistic scope.",
-    cta: { label: "Explore services", href: "#services" },
+    body: "You know roughly what is missing and want a sequenced plan with owners, dates and a realistic scope.",
+    ctaLabel: "Explore services",
+    ctaHref: "#services",
     ctaStyle: "outline",
     scene: "plan",
   },
@@ -168,8 +153,8 @@ export const audiencePaths: AudiencePath[] = [
     id: "ready",
     title: "I'm ready to fix this",
     body: "You want senior help in the building this quarter, working alongside your managers week to week.",
-    cta: { label: "Book a call", href: "#contact" },
-    ctaStyle: "dark",
+    ctaLabel: "Book a call",
+    ctaStyle: "booking",
     scene: "call",
   },
 ];
@@ -182,51 +167,51 @@ export const problemPills = [
 ] as const;
 
 export const callParticipants = [
-  { name: "Discovery call", role: "30 minutes", active: true },
+  { name: "Discovery call", role: "30 min", active: true },
   { name: "Founder", role: "Speaking", active: false },
   { name: "People lead", role: "Listening", active: false },
 ] as const;
 
-/* ---------------------------------------------------------- Pain points */
+/* ---------------------------------------------------------- Problems + consequences */
 
 export const painPoints = {
   title: "People operations shouldn't become the founder's second job.",
-  body: "As headcount grows, the informal habits that worked at ten people start costing time, consistency and good candidates. These are the three costs teams feel first.",
+  body: "The informal habits that work at ten people start costing time, consistency and good candidates. Each of these has a downstream cost that compounds quietly.",
   items: [
     {
       icon: "clock" as IconName,
       title: "Hiring drains leadership time",
-      body: "Without a scorecard, a loop and a shared bar, every open role pulls founders back into scheduling and second-guessing.",
+      body: "Without a scorecard, a fixed loop and a shared bar, every open role pulls founders back into scheduling and second-guessing.",
+      consequence: "Roles stay open longer and strong candidates accept elsewhere.",
     },
     {
       icon: "clipboard" as IconName,
       title: "Performance reviews lack consistency",
-      body: "Feedback arrives at different depths from different managers, so promotion and pay decisions become hard to defend.",
+      body: "Feedback arrives at different depths from different managers, so the same behaviour is rated differently across teams.",
+      consequence: "Pay and promotion decisions become difficult to explain or defend.",
     },
     {
       icon: "alert" as IconName,
       title: "Compliance stays on the backlog",
-      body: "Handbooks, classifications and state-by-state requirements sit untouched until an incident forces the issue.",
+      body: "Handbooks, classifications and state-by-state requirements sit untouched while more urgent work takes priority.",
+      consequence: "Small gaps surface at the worst moment, usually during an exit or a raise.",
     },
   ],
   ctas: {
-    primary: { label: "Book a 30-minute audit", href: "#contact" },
-    secondary: { label: "See how it works", href: "#process" },
+    primaryLabel: "See how we work",
+    primaryHref: "#process",
+    secondaryLabel: "Explore services",
+    secondaryHref: "#services",
   },
 };
 
 /* ---------------------------------------------------------- Services */
 
-export type Service = {
-  id: string;
-  icon: IconName;
-  title: string;
-  body: string;
-};
+export type Service = { id: string; icon: IconName; title: string; body: string };
 
 export const servicesHeading = {
   title: "What we help growing teams build",
-  body: "Eight practical building blocks. Most engagements start with two or three and expand only when the team is ready.",
+  body: "Six practical building blocks. Most engagements start with two or three and expand only when the team is ready.",
 };
 
 export const services: Service[] = [
@@ -234,7 +219,7 @@ export const services: Service[] = [
     id: "foundations",
     icon: "compass",
     title: "People Operations Foundations",
-    body: "Employee lifecycle, documentation and the handful of policies a growing company genuinely needs in place.",
+    body: "The employee lifecycle, core policies and the HR tooling underneath them — configured so your data stays clean and reporting is trustworthy.",
   },
   {
     id: "recruiting",
@@ -245,38 +230,26 @@ export const services: Service[] = [
   {
     id: "performance",
     icon: "gauge",
-    title: "Performance Management",
-    body: "A lightweight review rhythm, clear expectations by level and feedback managers can deliver without dread.",
+    title: "Performance and Development",
+    body: "A lightweight review rhythm, clear expectations by level, and growth conversations managers can hold without dread.",
   },
   {
     id: "compensation",
     icon: "scale",
     title: "Compensation and Leveling",
-    body: "Job architecture, bands and a promotion process that holds up when candidates and employees ask how decisions are made.",
+    body: "Job architecture, salary bands and a promotion process that holds up when candidates and employees ask how decisions get made.",
+  },
+  {
+    id: "managers",
+    icon: "sprout",
+    title: "Manager Enablement",
+    body: "Practical coaching for first-time managers: one-to-ones, delegation, difficult conversations and performance follow-through.",
   },
   {
     id: "relations",
     icon: "shield",
     title: "Employee Relations and Risk",
-    body: "Investigation practice, documentation standards and a calm escalation path before difficult moments arrive.",
-  },
-  {
-    id: "managers",
-    icon: "sprout",
-    title: "Manager Development",
-    body: "Practical coaching for first-time managers: one-to-ones, delegation, difficult conversations and performance follow-through.",
-  },
-  {
-    id: "culture",
-    icon: "heart",
-    title: "Culture and Engagement",
-    body: "Listening rhythms, onboarding rituals and internal communication that hold up across time zones and remote teams.",
-  },
-  {
-    id: "tooling",
-    icon: "plug",
-    title: "HR Technology Enablement",
-    body: "Selecting, configuring and connecting your HRIS, ATS and payroll so the data stays clean and reporting is trustworthy.",
+    body: "Investigation practice, documentation standards and a calm escalation path established before difficult moments arrive.",
   },
 ];
 
@@ -290,7 +263,7 @@ export type ProcessStep = {
 
 export const processHeading = {
   title: "A clear four-step path to stronger People Ops.",
-  body: "No long discovery phase, no fifty-page deliverable nobody opens. Each step produces something your team can use that week.",
+  body: "No long discovery phase and no fifty-page deliverable nobody opens. Each step produces something your team can use that week.",
 };
 
 export const processSteps: ProcessStep[] = [
@@ -307,7 +280,7 @@ export const processSteps: ProcessStep[] = [
   {
     id: "execution",
     title: "Execution and Coaching",
-    body: "We build the systems with your managers, coaching them through the first live cycles.",
+    body: "We build the systems with your managers and coach them through the first live cycles.",
   },
   {
     id: "optimise",
@@ -317,6 +290,45 @@ export const processSteps: ProcessStep[] = [
 ];
 
 export const processStepDuration = 5500;
+
+/* ---------------------------------------------------------- Founder + principles
+
+   DEMO CONTENT — replace `founder` with real details before launch.
+   Deliberately contains no employers, certifications, client results
+   or years of experience, so nothing here is an unverifiable claim.
+   ------------------------------------------------------------ */
+
+export const founder = {
+  name: "Amara Whitfield",
+  role: "Founder and Principal, Teamfold",
+  image: editorialImages.founderPortrait,
+  imageAlt: "Portrait of the Teamfold founder and principal People Operations consultant",
+  linkedin: LINKEDIN_URL,
+  bio: "I build People functions for companies going through their fastest growth — writing the first handbook, running the first review cycle, and coaching managers into roles they have never held before. Teamfold exists so smaller teams can reach that level of judgement without hiring for it full time.",
+  ctaLabel: "Start a conversation",
+} as const;
+
+export const aboutSection = {
+  eyebrow: "Who you'll be working with",
+  title: "Senior judgement, folded into your team",
+  principlesTitle: "How we work",
+  principles: [
+    {
+      title: "Design for the managers you have",
+      body: "Systems are built around how your team already works, not around a process that assumes a People department you do not have yet.",
+    },
+    {
+      title: "Sequence before scale",
+      body: "We agree the order of work first. Two or three things done properly beat a dozen half-finished initiatives every time.",
+    },
+    {
+      title: "Leave it written down",
+      body: "Everything is documented as it is built and handed to an internal owner, so the engagement ends without the systems ending with it.",
+    },
+  ],
+  coverageNote:
+    "We work remotely with distributed teams across the United States, and stay close to the state-by-state requirements that come with a distributed payroll.",
+};
 
 /* ---------------------------------------------------------- Audit CTA */
 
@@ -329,94 +341,11 @@ export const auditCta = {
     "A sensible first move you can make without outside help",
     "A view of what a fractional engagement would cover",
   ],
-  cta: { label: "Book your audit", href: "#contact" },
+  ctaLabel: "Book your audit",
   reassurance: "Thirty minutes, one call, no obligation to continue.",
 };
 
-/* ---------------------------------------------------------- Proof / insights */
-
-export const proofSection = {
-  title: "What teams need from a People partner",
-  body: "These are the patterns we see across the companies we work with — written as principles, not as client quotes.",
-};
-
-export type ProofCard = {
-  id: string;
-  context: string;
-  initials: string;
-  tone: string;
-  statement: string;
-};
-
-export const proofCards: ProofCard[] = [
-  {
-    id: "seed",
-    context: "Founder, seed-stage software company",
-    initials: "SS",
-    tone: "#fbd6a4",
-    statement:
-      "At this stage the win is a hiring loop that runs without the founder in every session — a scorecard, a fixed panel and a decision meeting on the calendar.",
-  },
-  {
-    id: "fintech",
-    context: "COO, financial technology company",
-    initials: "FT",
-    tone: "#f8eadb",
-    statement:
-      "Regulated environments need documentation before scale, not after. Classifications, handbooks and records should be settled while the team is still small enough to fix them quickly.",
-  },
-  {
-    id: "distributed",
-    context: "Operations lead, distributed team",
-    initials: "DT",
-    tone: "#f5a331",
-    statement:
-      "Distributed teams do not need more meetings. They need written expectations, predictable rhythms and onboarding that works the same way in every time zone.",
-  },
-  {
-    id: "growth",
-    context: "Engineering founder, growth-stage startup",
-    initials: "GS",
-    tone: "#e6e3dc",
-    statement:
-      "Levels and bands are a communication tool. Once people can see what the next level asks for, most performance conversations get considerably easier.",
-  },
-  {
-    id: "services",
-    context: "Executive, professional-services firm",
-    initials: "PS",
-    tone: "#f8eadb",
-    statement:
-      "Manager capability compounds faster than any policy. Coaching the first line of managers changes retention more than another engagement survey ever will.",
-  },
-];
-
-/* ---------------------------------------------------------- Leader */
-
-export const leader = {
-  eyebrow: "Who you'll be working with",
-  name: "Amara Whitfield",
-  role: "Founder and Principal, Peoplelayer",
-  imageUrl: editorialImages.peopleLeader,
-  imageAlt: "Portrait of the Peoplelayer founder and principal People Operations consultant",
-  body: "I've spent my career building People functions inside companies going through their fastest growth — writing the first handbook, running the first review cycle, and coaching managers into roles they had never held before. Peoplelayer exists so smaller teams can get that same level of judgement without hiring for it full time.",
-  credentials: [
-    "People leadership across software, health and professional-services teams",
-    "Built hiring, performance and leveling systems from a blank page",
-    "Coaches first-time managers through their first full performance cycle",
-  ],
-  cta: { label: "Start a conversation", href: "#contact" },
-};
-
-/* ---------------------------------------------------------- Coverage */
-
-export const coverage = {
-  title: "Supporting distributed teams across the United States",
-  body: "We work remotely with teams in every time zone, and stay close to the state-by-state requirements that come with a distributed payroll.",
-  cta: { label: "Check availability", href: "#contact" },
-};
-
-/* ---------------------------------------------------------- Articles */
+/* ---------------------------------------------------------- Insights */
 
 export type Article = {
   id: string;
@@ -425,44 +354,42 @@ export type Article = {
   excerpt: string;
   image: string;
   imageAlt: string;
-  href: string;
+  /** Set once a real article route exists; until then the card is not a link. */
+  href?: string;
 };
 
 export const articlesHeading = {
   title: "Latest insights",
-  cta: { label: "All insights", href: "#insights" },
+  body: "Short, practical notes on the questions founders ask us most often.",
 };
 
 export const articles: Article[] = [
   {
     id: "policies",
     category: "Foundations",
-    title: "What People Policies Should a Startup Establish First?",
+    title: "What People policies should a startup establish first?",
     excerpt:
       "A short list of policies worth writing before headcount reaches thirty — and the ones that can safely wait.",
-    image: editorialImages.teamCollaboration,
-    imageAlt: "A small team working together around a table in a bright office",
-    href: "#insights",
+    image: editorialImages.workingSession,
+    imageAlt: "Colleagues reviewing work together during a planning session",
+  },
+  {
+    id: "manager-support",
+    category: "Managers",
+    title: "Supporting first-time managers without a training budget",
+    excerpt:
+      "The handful of habits that carry a new manager through their first year, and how to coach them week to week.",
+    image: editorialImages.managerCoaching,
+    imageAlt: "A manager and team member talking during a one-to-one conversation",
   },
   {
     id: "remote-culture",
     category: "Culture",
-    title: "Building Remote Culture Without Leaving It to Chance",
+    title: "Building remote culture without leaving it to chance",
     excerpt:
       "Rituals, written norms and onboarding choices that make a distributed team feel deliberate rather than accidental.",
-    image: editorialImages.remoteMeeting,
-    imageAlt: "A remote team meeting displayed on a laptop screen in an office",
-    href: "#insights",
-  },
-  {
-    id: "employee-relations",
-    category: "Risk",
-    title: "When a Growing Team Needs an Employee Relations Process",
-    excerpt:
-      "The signals that tell you informal handling has run out of road, and what a proportionate process looks like.",
     image: editorialImages.teamCulture,
-    imageAlt: "Colleagues in conversation during an informal team gathering",
-    href: "#insights",
+    imageAlt: "A distributed team collaborating during an informal working session",
   },
 ];
 
@@ -479,7 +406,7 @@ export const faqs: Faq[] = [
   },
   {
     id: "plan",
-    question: "What is included in the 90-day People Plan?",
+    question: "What is included in the 90-Day People Plan?",
     answer:
       "A sequenced plan covering the systems to build, the order to build them in, who owns each piece internally, and what we will run together. It is scoped to fit alongside your team's existing workload rather than replacing it.",
   },
@@ -493,7 +420,7 @@ export const faqs: Faq[] = [
     id: "hris",
     question: "Do you work with our existing HR tools?",
     answer:
-      "Yes. We start with what you already pay for and make it work properly. If a change is genuinely needed, we help you scope the selection and run the migration rather than recommending tools by default.",
+      "Yes. We start with what you already pay for and make it work properly. If a change is genuinely needed we help you scope the selection and run the migration, rather than recommending tools by default.",
   },
   {
     id: "hours",
@@ -517,7 +444,7 @@ export const faqs: Faq[] = [
     id: "start",
     question: "How quickly can we start?",
     answer:
-      "Usually within two weeks of the audit call. Discovery and the plan take the first fortnight; hands-on work begins immediately afterwards.",
+      "Usually within two weeks of the first call. Discovery and the plan take the opening fortnight, and hands-on work begins immediately afterwards.",
   },
 ];
 
@@ -525,9 +452,9 @@ export const faqs: Faq[] = [
 
 export const finalCta = {
   title: "Let's build the People systems your team deserves",
-  body: "Start with a short audit call. We'll tell you plainly whether we can help — and what to do first if we can't.",
-  primary: { label: "Book a 30-minute audit", href: "#contact" },
-  secondary: { label: "Email us directly", href: `mailto:${brand.email}` },
+  body: "Start with a short call. We'll tell you plainly whether we can help — and what to do first if we can't.",
+  primaryLabel: "Book a 30-minute audit",
+  secondaryLabel: "Email us directly",
 };
 
 export const footerColumns = [
@@ -536,7 +463,7 @@ export const footerColumns = [
     links: [
       { label: "Services", href: "#services" },
       { label: "How it works", href: "#process" },
-      { label: "About", href: "#leader" },
+      { label: "About", href: "#about" },
     ],
   },
   {
@@ -544,10 +471,39 @@ export const footerColumns = [
     links: [
       { label: "Insights", href: "#insights" },
       { label: "FAQ", href: "#faq" },
-      { label: "Coverage", href: "#coverage" },
+      { label: "Privacy", href: "/privacy" },
     ],
   },
 ] as const;
+
+export const footerMeta = {
+  connectTitle: "Connect",
+  legalLinks: [
+    { label: "Privacy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
+  ],
+};
+
+/* ---------------------------------------------------------- Contact modal */
+
+export const contactModal = {
+  title: "Book your audit call",
+  body: "Tell us where your team is today and we'll come back within one working day with times.",
+  submitLabel: "Request a time",
+  successTitle: "Thanks — that's with us.",
+  successBody:
+    "This demo form isn't connected to a mailbox yet, so please email us directly and we'll pick it up straight away.",
+  fields: {
+    name: { label: "Name", placeholder: "Your name" },
+    email: { label: "Work email", placeholder: "you@company.com" },
+    company: { label: "Company", placeholder: "Company name" },
+    teamSize: { label: "Team size", placeholder: "Select a range" },
+    message: { label: "What's prompting this?", placeholder: "A sentence or two is plenty." },
+  },
+  teamSizeOptions: ["1–15 people", "16–50 people", "51–120 people", "120+ people"],
+};
+
+/* ---------------------------------------------------------- Legal routes */
 
 export type LegalPage = {
   slug: "privacy" | "terms";
@@ -561,17 +517,17 @@ export const legalPages: LegalPage[] = [
   {
     slug: "privacy",
     title: "Privacy",
-    updated: "This page describes how the Peoplelayer website handles visitor information.",
+    updated: "How the Teamfold website handles visitor information.",
     intro:
-      "Peoplelayer keeps this simple: the marketing site collects as little as possible, and anything you send us is used only to reply to you.",
+      "Teamfold keeps this simple: the marketing site collects as little as possible, and anything you send us is used only to reply to you.",
     sections: [
       {
         heading: "What the site collects",
-        body: "The pages on this site are static. We do not run advertising trackers, and we do not build visitor profiles. Standard server logs may record request data such as IP address and user agent for security and reliability purposes.",
+        body: "These pages are static. We do not run advertising trackers and we do not build visitor profiles. Standard server logs may record request data such as IP address and user agent for security and reliability purposes.",
       },
       {
         heading: "What you send us",
-        body: "If you email us or book a call, we hold your message and contact details so we can respond and, where relevant, prepare for the conversation. We do not sell or share that information with third parties for their own marketing.",
+        body: "If you email us or request a call, we hold your message and contact details so we can respond and prepare for the conversation. We do not sell that information or share it with third parties for their own marketing.",
       },
       {
         heading: "Retention and removal",
@@ -582,7 +538,7 @@ export const legalPages: LegalPage[] = [
   {
     slug: "terms",
     title: "Terms",
-    updated: "These terms cover use of the Peoplelayer website, not any consulting engagement.",
+    updated: "These terms cover use of the Teamfold website, not any consulting engagement.",
     intro:
       "Consulting work is governed by a separate written agreement. These terms apply only to browsing this website.",
     sections: [
@@ -592,7 +548,7 @@ export const legalPages: LegalPage[] = [
       },
       {
         heading: "Nothing here is advice",
-        body: "The articles and descriptions on this site are general information about People Operations practice. They are not legal, tax or employment advice for your specific situation, and should not be relied on as a substitute for professional counsel.",
+        body: "The articles and descriptions on this site are general information about People Operations practice. They are not legal, tax or employment advice for your situation, and are not a substitute for professional counsel.",
       },
       {
         heading: "Engagements",
@@ -601,12 +557,3 @@ export const legalPages: LegalPage[] = [
     ],
   },
 ];
-
-export const footerMeta = {
-  connectTitle: "Connect",
-  copyright: `© ${new Date().getFullYear()} ${brand.name}. All rights reserved.`,
-  legalLinks: [
-    { label: "Privacy", href: "/privacy" },
-    { label: "Terms", href: "/terms" },
-  ],
-};
